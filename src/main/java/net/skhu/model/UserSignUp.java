@@ -20,7 +20,7 @@ public class UserSignUp{
     @NotEmpty(message="비밀번호를 한번 더 입력하세요")
     String passwd2;
 
-    @NotEmpty(message="이름을 입력하세요")
+    @NotEmpty(message="닉네임을 입력하세요")
     @Size(min=2, max=30)
     String name;
 

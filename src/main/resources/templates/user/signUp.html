@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>성공회대학교 자리예약시스템</title>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+header {
+	text-align: center;
+}
+
+div#register-form {
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 450px;
+	padding-bottom: 40px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+div#registerContainer {
+	text-align: center;
+}
+
+div.form-group {
+	width: 400px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+h3#register {
+	margin-left: 30px;
+}
+p.error { color:red; font-weight:bold; font-size:5px; margin-top:2px;}
+</style>
+
+</head>
+<body>
+	<header>
+		<h3>성공회대학교 자리예약시스템</h3>
+		<Br>
+		<div id="menu-bar">
+			<a class="menu" href=#>예약 현황</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>테이블만들기</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>마이페이지</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>문의하기</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>로그인</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#><strong>회원가입</strong></a>
+		</div>
+	</header>
+	<container>
+	<div id=register-form>
+		<div class="smallContainer">
+			<br>
+
+			<h3 id="register">회원가입</h3>
+			<br>
+			<form th:action="@{/user/signup}" method="post" th:object="${userSignUp}"
+				id="signUp">
+				<div class="form-group">
+					<label>아이디</label> <input
+						th:field="*{userId}" type="text"  class="form-control">
+					<p class="error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">Id Error</p>
+				</div>
+				
+				<div class="form-group">
+					<label>비밀번호</label> <input
+						th:field="*{passwd1}" type="password" class="form-control">
+					<p class="error" th:if="${#fields.hasErrors('passwd1')}" th:errors="*{passwd1}">password Error</p>
+				</div>
+
+				<div class="form-group">
+					<label>비밀번호 확인</label> <input
+						th:field="*{passwd2}" type="password" class="form-control">
+					<p class="error" th:if="${#fields.hasErrors('passwd2')}" th:errors="*{passwd2}">password2 Error</p>
+				</div>
+
+				<div class="form-group">
+					<label>이메일</label> <input th:field="*{email}"
+						type="email" class="form-control">
+					<p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</p>
+				</div>
+
+				<div class="form-group">
+					<label>닉네임</label> <input th:field="*{name}"
+						type="text" class="form-control">
+					<p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</p>
+					
+				</div>
+
+				<div id="registerContainer">
+					<button type="submit" class="btn btn-primary">회원가입</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</container>
+</body>
+</html>

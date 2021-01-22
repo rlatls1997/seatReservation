@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>성공회대학교 자리예약시스템</title>
+
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<style>
+		header {text-align:center;}
+		div#login-form { border: 1px solid gray; border-radius:5px; width: 450px; height:400px; margin:auto;
+			margin-top:20px;}
+		div#loginContainer { text-align:center; }
+		div.form-group {width:400px; margin:auto; margin-bottom:10px;}
+		h3#login { margin-left : 30px; }
+	</style>
+
+</head>
+<body>
+	<header>
+		<h3>성공회대학교 자리예약시스템</h3><Br>
+		<div id="menu-bar">
+			<a class="menu" href=#>예약 현황</a>
+			<span class="vertical-line"> | </span>
+			<a class="menu" href=#>테이블만들기</a>
+			<span class="vertical-line"> | </span>
+			<a class="menu" href=#>마이페이지</a>
+			<span class="vertical-line"> | </span>
+			<a class="menu" href=#>문의하기</a>
+			<span class="vertical-line"> | </span>
+			<a class="menu" href=#><strong>로그인</strong></a>
+			<span class="vertical-line"> | </span>
+			<a class="menu" href=#>회원가입</a>
+		</div>
+	</header>
+	<container>
+		<div id=login-form>
+		<div class="smallContainer">
+		<br>
+		
+		<h3 id="login">로그인</h3>
+		<br>
+		<form action="/login" method="post" id="login1">
+			<div class="form-group">
+				<label for="exampleInputId">아이디</label> <input name="author"
+					type="text" class="form-control" id="exampleInputId">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1">비밀번호</label> <input
+					name="user_password" type="password" class="form-control"
+					id="exampleInputPassword1">
+			</div>
+			<div id="loginContainer">
+			<input type="submit" class="btn btn-primary" value="로그인"> <a
+				href="/signin">
+				<button type="button" class="btn btn-primary">회원가입</button>
+			</a>
+			</div>
+		</form>
+	</div>
+	</div>
+	</container>
+</body>
+</html>

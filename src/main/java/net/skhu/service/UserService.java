@@ -49,10 +49,7 @@ public class UserService {
 		user.setPassword(userSignUp.getPasswd1());
 		user.setName(userSignUp.getName());
 		user.setEmail(userSignUp.getEmail());
-
-
-
-
+		user.setTypeId("1");
 
 		return user;
 	}

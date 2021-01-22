@@ -14,7 +14,7 @@ import net.skhu.model.UserSignUp;
 import net.skhu.service.UserService;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -35,12 +35,18 @@ public class UserController {
 			return "user/signUp";
 		}
 		userService.save(userSignUp);
-		return "redirect:success";
+		return "user/index";
 	}
 
 	@RequestMapping("success")
 	public String success() {
 		return "user/success";
+	}
+
+	/**************로그인*************/
+	@RequestMapping("/signin")
+	public String signIn(Model model) {
+		return "user/signIn";
 	}
 }
 
