@@ -35,7 +35,7 @@ public class UserController {
 			return "user/signUp";
 		}
 		userService.save(userSignUp);
-		return "user/index";
+		return "user/signin";
 	}
 
 	@RequestMapping("success")

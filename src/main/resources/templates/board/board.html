@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>성공회대학교 자리예약시스템</title>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+header {
+	text-align: center;
+}
+
+div#register-form {
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 450px;
+	padding-bottom: 40px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+div#registerContainer {
+	text-align: center;
+}
+
+div.form-group {
+	width: 400px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+h3#register {
+	margin-left: 30px;
+}
+p.error { color:red; font-weight:bold; font-size:5px; margin-top:2px;}
+
+</style>
+
+</head>
+<body>
+	<header>
+		<h3>성공회대학교 자리예약시스템</h3>
+		<Br>
+		<div id="menu-bar">
+			<a class="menu" href=#>예약 현황</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>테이블만들기</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#><strong>게시판</strong></a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>문의하기</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>로그인</a> <span class="vertical-line">
+				| </span> <a class="menu" href=#>회원가입</a>
+		</div>
+	</header>
+	<container>
+	<div id=register-form>
+		<div class="smallContainer">
+			<br>
+
+			<h3 id="register">게시판</h3>
+			<br>
+			<table id="board" class="table table-hover table-condensed">
+  			<thead class="thead-light">
+  				<tr class="text-center">
+  					<td>
+  						글번호
+  					</td>
+  					<td>
+  						제목
+  					</td>
+  					<td>
+  						작성자
+  					</td>
+  					<td>
+  						작성일
+  					</td>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr class="text-center" th:each="board : ${boardList}">
+  					<td th:text = "${board.id}">
+  						
+  					</td>
+  					<td th:text = "${board.title}">
+  						제목
+  					</td>
+  					<td th:text = "${board.user.name}">
+  						작성자
+  					</td>
+  					<td th:text = "${#temporals.format(board.reportingDate, 'yy-MM-dd HH:mm')}">
+  						작성일
+  					</td>
+  				</tr>
+  			</tbody>
+			</table>
+		</div>
+	</div>
+	</container>
+</body>
+</html>

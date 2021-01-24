@@ -57,7 +57,7 @@ p.error { color:red; font-weight:bold; font-size:5px; margin-top:2px;}
 
 			<h3 id="register">회원가입</h3>
 			<br>
-			<form th:action="@{/user/signup}" method="post" th:object="${userSignUp}"
+			<form th:action="@{/user/signin}" method="post" th:object="${userSignUp}"
 				id="signUp">
 				<div class="form-group">
 					<label>아이디</label> <input
