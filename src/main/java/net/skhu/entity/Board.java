@@ -31,6 +31,4 @@ public class Board {
 	@CreatedDate
     @Column(updatable = false)
     LocalDateTime reportingDate;
-
-
 }

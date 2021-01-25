@@ -1,10 +1,13 @@
 package net.skhu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.skhu.entity.Board;
 import net.skhu.service.BoardService;
 
 @Controller
@@ -14,8 +17,11 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("")
-	public String board(Model model) {
-		model.addAttribute("boardList", boardService.findAll());
+	public String board(Pageable pageable, Model model) {
+		Page<Board> boardList = boardService.getBoardList(pageable);
+		model.addAttribute("boardList", boardList);
 		return "board/board.html";
 	}
+
+
 }
