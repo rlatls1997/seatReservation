@@ -16,6 +16,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
+	/*********글 목록 조회*************/
 	@RequestMapping("")
 	public String board(Pageable pageable, Model model) {
 		Page<Board> boardList = boardService.getBoardList(pageable);

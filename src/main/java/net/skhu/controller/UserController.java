@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.skhu.model.UserSignIn;
 import net.skhu.model.UserSignUp;
 import net.skhu.service.UserService;
 
@@ -35,7 +36,7 @@ public class UserController {
 			return "user/signUp";
 		}
 		userService.save(userSignUp);
-		return "user/signin";
+		return "user/index";
 	}
 
 	@RequestMapping("success")
@@ -45,8 +46,23 @@ public class UserController {
 
 	/**************로그인*************/
 	@RequestMapping("/signin")
-	public String signIn(Model model) {
+	public String signIn() {
 		return "user/signIn";
+	}
+
+	/*
+	@PostMapping("/signin")
+	public String signIn(Model model, @Valid UserSignIn userSignIn, BindingResult bindingResult) {
+		if(userService.hasErrorsInLogin(userSignIn,  bindingResult)){
+			return "user/signIn";
+		}
+		return "user/index";
+	}
+	*/
+
+	@RequestMapping("/index")
+	public String index() {
+		return "user/index";
 	}
 }
 

@@ -3,10 +3,12 @@ package net.skhu.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import net.skhu.entity.User;
+import net.skhu.model.UserSignIn;
 import net.skhu.model.UserSignUp;
 import net.skhu.repository.UserRepository;
 
@@ -15,41 +17,43 @@ public class UserService {
 
 	@Autowired
 	public UserRepository userRepository;
+	@Autowired
+	public PasswordEncoder passwordEncoder;
 
-	public List<User> findAll(){
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 
 	public boolean hasErrors(UserSignUp userSignUp, BindingResult bindingResult) {
-		//spring validation에서의 에러 처리
-		if(bindingResult.hasErrors())
+		// spring validation에서의 에러 처리
+		if (bindingResult.hasErrors())
 			return true;
 
-		/*로직 에러 처리*/
-		//비밀번호 불일치
-		if(userSignUp.getPasswd1().equals(userSignUp.getPasswd2()) == false) {
+		/* 로직 에러 처리 */
+		// 비밀번호 불일치
+		if (userSignUp.getPasswd1().equals(userSignUp.getPasswd2()) == false) {
 			bindingResult.rejectValue("passwd2", null, "비밀번호가 일치하지 않습니다.");
 			return true;
 		}
 
-		//아이디 중복
+		// 아이디 중복
 		User user = userRepository.findByUserId(userSignUp.getUserId());
-		if(user != null) {
+		if (user != null) {
 			bindingResult.rejectValue("userId", null, "중복된 아이디입니다.");
 			return true;
 		}
 		return false;
-
 
 	}
 
 	public User createEntity(UserSignUp userSignUp) {
 		User user = new User();
 		user.setUserId(userSignUp.getUserId());
-		user.setPassword(userSignUp.getPasswd1());
+		user.setPassword(passwordEncoder.encode(userSignUp.getPasswd1()));
 		user.setName(userSignUp.getName());
 		user.setEmail(userSignUp.getEmail());
 		user.setTypeId("1");
+		user.setEnabled(true);
 
 		return user;
 	}
@@ -59,19 +63,26 @@ public class UserService {
 
 		userRepository.save(user);
 	}
+
+	public boolean hasErrorsInLogin(UserSignIn userSignIn, BindingResult bindingResult) {
+		String checkId = userSignIn.getUserId();
+		String checkPassword = userSignIn.getPassWord();
+
+		if (bindingResult.hasErrors())
+			return true;
+
+		// 아이디없음
+		User user = userRepository.findByUserId(checkId);
+		if (user == null) {
+			bindingResult.rejectValue("userId", null, "존재하지 않는 아이디입니다.");
+			return true;
+		}
+
+		//비밀번호 불일치
+		else if(user.getPassword().equals(checkPassword) == false) {
+			bindingResult.rejectValue("passWord", null, "비밀번호가 일치하지 않습니다.");
+			return true;
+		}
+		return false;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

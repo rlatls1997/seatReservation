@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>성공회대학교 자리예약시스템</title>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
+<!-- bootstrap css -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- bootstrap js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
 <style>
 header {
 	text-align: center;
@@ -48,18 +58,7 @@ nav {
 
 </head>
 <body>
-	<header>
-		<h3>성공회대학교 자리예약시스템</h3>
-		<Br>
-		<div id="menu-bar">
-			<a class="menu" href=#>예약 현황</a> <span class="vertical-line">
-				| </span> <a class="menu" href=#>테이블만들기</a> <span class="vertical-line">
-				| </span> <a class="menu" href=#><strong>게시판</strong></a> <span
-				class="vertical-line"> | </span> <a class="menu" href=#>문의하기</a> <span
-				class="vertical-line"> | </span> <a class="menu" href=#>로그인</a> <span
-				class="vertical-line"> | </span> <a class="menu" href=#>회원가입</a>
-		</div>
-	</header>
+	<header th:insert="common/header.html"></header>
 	<container>
 	<div id=register-form>
 		<div class="smallContainer">
@@ -90,8 +89,8 @@ nav {
 			<div id="pagination">
 				<nav>
 					<ul id="pagination" class="pagination"
-						th:with="start=${T(Math).floor(boardList.number/10)*10 + 1},
-					last = (${start + 9 < boardList.totalPages ? start + 9 : boardList.totalPages})">
+						th:with="start=${T(Math).floor(boardList.number/5)*5 + 1},
+					last = (${start + 4 < boardList.totalPages ? start + 4 : boardList.totalPages})">
 
 						<li><a th:href="@{/board(page=1)}" aria-label="First"> <span
 								aria-hidden="true">&laquo;</span>
@@ -115,7 +114,7 @@ nav {
 
 					</ul>
 				</nav>
-			</div>
+			</div>		
 		</div>
 	</div>
 	</container>

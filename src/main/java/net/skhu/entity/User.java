@@ -20,5 +20,6 @@ public class User {
 	String sex;
 	String email;
 	String typeId;
+	boolean enabled;
 
 }
