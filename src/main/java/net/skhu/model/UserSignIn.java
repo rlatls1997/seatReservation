@@ -11,5 +11,5 @@ public class UserSignIn {
 		String userId;
 
 		@NotEmpty(message="비밀번호를 입력하세요")
-		String passWord;
+		String password;
 }

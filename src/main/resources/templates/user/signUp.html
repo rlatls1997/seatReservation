@@ -73,17 +73,17 @@ p.error {
 				</div>
 
 				<div class="form-group">
-					<label>비밀번호</label> <input th:field="*{passwd1}" type="password"
+					<label>비밀번호</label> <input th:field="*{password}" type="password"
 						class="form-control" placeholder="6~12자리의 비밀번호를 입력하세요">
-					<p class="error" th:if="${#fields.hasErrors('passwd1')}"
-						th:errors="*{passwd1}">password Error</p>
+					<p class="error" th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}">password Error</p>
 				</div>
 
 				<div class="form-group">
-					<label>비밀번호 확인</label> <input th:field="*{passwd2}" type="password"
+					<label>비밀번호 확인</label> <input th:field="*{passwordCheck}" type="password"
 						class="form-control" placeholder="비밀번호를 한번 더 입력하세요">
-					<p class="error" th:if="${#fields.hasErrors('passwd2')}"
-						th:errors="*{passwd2}">password2 Error</p>
+					<p class="error" th:if="${#fields.hasErrors('passwordCheck')}"
+						th:errors="*{passwordCheck}">password2 Error</p>
 				</div>
 
 				<div class="form-group">

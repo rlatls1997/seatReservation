@@ -1,5 +1,6 @@
 package net.skhu.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import net.skhu.model.UserSignIn;
 import net.skhu.model.UserSignUp;
 import net.skhu.service.UserService;
 
@@ -24,7 +24,9 @@ public class UserController {
 
 	/**************회원가입*************/
 	@GetMapping("signup")
-	public String signUp(Model model) {
+	public String signUp(Model model, HttpServletRequest request) {
+		if(request.isUserInRole("ROLE_LOGINCHECK"))
+			return "redirect:/board";
 		model.addAttribute(new UserSignUp());
 		return "user/signUp";
 	}
@@ -46,7 +48,9 @@ public class UserController {
 
 	/**************로그인*************/
 	@RequestMapping("/signin")
-	public String signIn() {
+	public String signIn(Model model, HttpServletRequest request) {
+		if(request.isUserInRole("ROLE_LOGINCHECK"))
+			return "redirect:/board";
 		return "user/signIn";
 	}
 

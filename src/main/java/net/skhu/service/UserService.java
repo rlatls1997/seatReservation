@@ -2,6 +2,7 @@ package net.skhu.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class UserService {
 	public UserRepository userRepository;
 	@Autowired
 	public PasswordEncoder passwordEncoder;
+	@Autowired
+	public ModelMapper modelMapper;
 
 	public List<User> findAll() {
 		return userRepository.findAll();
@@ -31,7 +34,7 @@ public class UserService {
 
 		/* 로직 에러 처리 */
 		// 비밀번호 불일치
-		if (userSignUp.getPasswd1().equals(userSignUp.getPasswd2()) == false) {
+		if (userSignUp.getPassword().equals(userSignUp.getPasswordCheck()) == false) {
 			bindingResult.rejectValue("passwd2", null, "비밀번호가 일치하지 않습니다.");
 			return true;
 		}
@@ -49,7 +52,7 @@ public class UserService {
 	public User createEntity(UserSignUp userSignUp) {
 		User user = new User();
 		user.setUserId(userSignUp.getUserId());
-		user.setPassword(passwordEncoder.encode(userSignUp.getPasswd1()));
+		user.setPassword(passwordEncoder.encode(userSignUp.getPassword()));
 		user.setName(userSignUp.getName());
 		user.setEmail(userSignUp.getEmail());
 		user.setTypeId("1");
@@ -59,14 +62,15 @@ public class UserService {
 	}
 
 	public void save(UserSignUp userSignUp) {
-		User user = createEntity(userSignUp);
 
+		User user = createEntity(userSignUp);
 		userRepository.save(user);
+		return;
 	}
 
 	public boolean hasErrorsInLogin(UserSignIn userSignIn, BindingResult bindingResult) {
 		String checkId = userSignIn.getUserId();
-		String checkPassword = userSignIn.getPassWord();
+		String checkPassword = userSignIn.getPassword();
 
 		if (bindingResult.hasErrors())
 			return true;

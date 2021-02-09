@@ -30,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService)
-
 			.passwordEncoder(passwordEncoder());
 	}
 
@@ -44,8 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 
-
-
 		http.formLogin()
 			.loginPage("/user/signin")
 			.loginProcessingUrl("/login_processing")
@@ -53,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.failureUrl("/user/signin?error")
 			.defaultSuccessUrl("/board", true)
 			.usernameParameter("userId")
-			.passwordParameter("passWord");
+			.passwordParameter("password");
 
 		http.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout_processing"))

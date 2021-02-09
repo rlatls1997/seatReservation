@@ -7,6 +7,7 @@
 <!-- bootstrap css -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/common/common.css">
 
 <!-- bootstrap js -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -17,6 +18,7 @@
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 	crossorigin="anonymous"></script>
 <style>
+
 header {
 	text-align: center;
 }
@@ -42,8 +44,12 @@ div.form-group {
 
 h3#register {
 	margin-left: 30px;
+	display:inline;
 }
-
+div#writeBoard{
+	display:inline-block;
+	text-align:right;
+}
 p.error {
 	color: red;
 	font-weight: bold;
@@ -63,8 +69,15 @@ nav {
 	<div id=register-form>
 		<div class="smallContainer">
 			<br>
-
+		
+			<div id = "boardHeader">
 			<h3 id="register">게시판</h3>
+			<div id= "writeBoard"></div>
+			<a id="writeBoard" sec:authorize="isAuthenticated()" th:href="@{/board/create}">
+			<button  id="writeBoard" type="button" class="btn btn-primary">글작성</button>
+			</a>
+			</div>
+			</div>
 			<br>
 			<table id="board" class="table table-hover table-condensed">
 				<thead class="thead-light">

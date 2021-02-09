@@ -21,6 +21,7 @@ public class SrUserDetails implements UserDetails {
 	final boolean isEnabled;
 	Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
+	final String userId;
 	final String name;
 	final String email;
 	final String typeId;
@@ -35,6 +36,7 @@ public class SrUserDetails implements UserDetails {
 		this.password = user.getPassword();
 		this.isEnabled = user.isEnabled();
 
+		this.userId = user.getUserId();
 		this.name = user.getName();
 		this.email = user.getEmail();
 		this.typeId = user.getTypeId();

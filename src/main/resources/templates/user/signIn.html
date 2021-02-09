@@ -81,7 +81,7 @@ p.error {
 
 				<div class="form-group">
 					<label for="exampleInputPassword1">비밀번호</label> <input
-						name="passWord" type="password" class="form-control"
+						name="password" type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="비밀번호를 입력하세요.">
 					<p th:if="${param.error != null}" class="error">아이디나 비밀번호가
 						잘못되었습니다.</p>
@@ -90,15 +90,15 @@ p.error {
 
 
 				<div id="loginContainer">
-					<input type="submit" class="btn btn-primary" value="로그인"> <a
-						th:href="@{/user/signup}">
+					<input type="submit" class="btn btn-primary" value="로그인"> 
+					<a th:href="@{/user/signup}">
 						<button type="button" class="btn btn-primary">회원가입</button>
 					</a>
 					<p>
 						<a>아이디/비밀번호 찾기</a>
-						<span sec:authorize="isAuthenticated()">로그아웃1</span>
-						<span sec:authorize="!isAuthenticated()">로그아웃2</span>
-						<span sec:authorize="isAnonymous()">로그아웃3</span>
+						<span sec:authorize="isAuthenticated()">1. 인증된 경우 출력</span>
+						<span sec:authorize="!isAuthenticated()">2. 인증안된경우 출력</span>
+						<span sec:authorize="isAnonymous()">3.미인증유저일 경우 출력</span>
 					</p>
 				</div>
 			</form>

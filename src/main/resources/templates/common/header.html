@@ -26,7 +26,7 @@
       </form>
      	
       <ul class="nav navbar-nav navbar-right">
-  		<li><span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+  		<li><span sec:authorize="isAuthenticated()" sec:authentication="principal.name"></span>
      	<span sec:authorize="isAuthenticated()">님 환영합니다.</span></li>
     
       	<li sec:authorize="isAnonymous()"><a th:href="@{/user/signin}"><button type="button" class="btn btn-primary">로그인</button></a></li>
