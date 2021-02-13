@@ -1,4 +1,4 @@
-package net.skhu.model;
+package net.skhu.dto;
 
 import lombok.Data;
 

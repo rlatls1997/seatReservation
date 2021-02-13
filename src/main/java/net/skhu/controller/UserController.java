@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import net.skhu.model.UserSignUp;
+import net.skhu.dto.UserSignUp;
 import net.skhu.service.UserService;
 
 @Controller
@@ -28,14 +28,14 @@ public class UserController {
 		if(request.isUserInRole("ROLE_LOGINCHECK"))
 			return "redirect:/board";
 		model.addAttribute(new UserSignUp());
-		return "user/signUp";
+		return "user/signup";
 	}
 
 	@PostMapping("signup")
 	public String signUp(Model model,
 			@Valid UserSignUp userSignUp, BindingResult bindingResult) {
 		if(userService.hasErrors(userSignUp, bindingResult)) {
-			return "user/signUp";
+			return "user/signIn";
 		}
 		userService.save(userSignUp);
 		return "user/index";

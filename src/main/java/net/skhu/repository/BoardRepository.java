@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import net.skhu.dto.Pagination;
 import net.skhu.entity.Board;
-import net.skhu.model.Pagination;
 
 public interface BoardRepository extends JpaRepository<Board, Integer>  {
 	public default List<Board> findAll(Pagination pagination){

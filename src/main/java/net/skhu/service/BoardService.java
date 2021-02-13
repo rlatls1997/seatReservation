@@ -11,10 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import net.skhu.dto.BoardCreateDto;
+import net.skhu.dto.BoardDetailsDto;
+import net.skhu.dto.Pagination;
 import net.skhu.entity.Board;
 import net.skhu.entity.User;
-import net.skhu.model.BoardCreate;
-import net.skhu.model.Pagination;
 import net.skhu.repository.BoardRepository;
 import net.skhu.repository.UserRepository;
 
@@ -36,12 +37,25 @@ public class BoardService {
 		return boardRepository.findAll(pagination);
 	}
 
-	public void save(BoardCreate boardCreate) {
+	public BoardDetailsDto findOne(int id) {
+		Board board = boardRepository.getOne(id);
+		BoardDetailsDto boardDetailsDto = modelMapper.map(board, BoardDetailsDto.class);
+
+		return boardDetailsDto;
+	}
+
+	public void save(BoardCreateDto boardCreate) {
 		Board board = createBoard(boardCreate);
 		boardRepository.save(board);
 		return;
 	}
-	public Board createBoard(BoardCreate boardCreate) {
+	public void edit(BoardDetailsDto boardDetailsDto) {
+		Board board = modelMapper.map(boardDetailsDto, Board.class);
+		boardRepository.save(board);
+
+		return;
+	}
+	public Board createBoard(BoardCreateDto boardCreate) {
 		Board board = new Board();
 
 		board.setContent(boardCreate.getContent());
@@ -62,11 +76,16 @@ public class BoardService {
 
 	}
 
-	public boolean hasErrors(BoardCreate boardCreate, BindingResult bindingResult) {
+	public boolean hasErrors(BoardCreateDto boardCreate, BindingResult bindingResult) {
 		//spring validation에서의 에러처리
 		if(bindingResult.hasErrors())
 			return true;
 
 		return false;
+	}
+
+	public void deleteOne(int id) {
+		boardRepository.deleteById(id);
+		return;
 	}
 }

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>성공회대학교 자리예약시스템</title>
+
+<!-- bootstrap css -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- bootstrap js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
+
+<style>
+container { width:800px;}
+header {
+	text-align: center;
+}
+
+div#register-form {
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 450px;
+	padding-bottom: 40px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+div#registerContainer {
+	text-align: center;
+}
+
+div.form-group {
+	width: 400px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+h3#register {
+	margin-left: 30px;
+	display:inline;
+}
+div#writeBoard{
+	display:inline-block;
+	text-align:right;
+}
+p.error {
+	color: red;
+	font-weight: bold;
+	font-size: 5px;
+	margin-top: 2px;
+}
+
+nav {
+	text-align: center;
+}
+pre#content {background-color: white;}
+input#submitComment {
+	display: inline-block;
+	width: 15%;
+	margin-bottom: 80px;
+	margin-left: 20px;
+}
+textarea#inputComment {
+	display: inline;
+	width: 80%;
+}
+th { text-align:center;}
+div#buttons { text-align:right;  }
+form#delete-form { display:inline;}
+</style>
+
+</head>
+<body>
+	<header th:insert="common/header.html"></header>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+
+				<h5 class="card-title"
+					th:text="@{${board?.title} + ' - ' + ${board?.user.name}}"></h5>
+					<p class="card-text">
+					<small class="text-muted"
+						th:text="${#temporals.format(board?.reportingDate, 'yyyy-MM-dd HH:mm')}"></small>
+				</p>
+					<hr>
+			
+			
+				<pre id="content"><p id="content1" class="card-text"
+					th:text="${board?.content}"></p></pre>
+					
+
+	
+			</div>
+		</div>
+		
+		
+		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@수정필요 @@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="row mt-3">
+			<div id="buttons" >
+			
+				<a class="btn btn-success"
+					th:href="@{'/board'}"
+					role="button">목록으로</a>
+			
+		
+				<a sec:authorize="isAuthenticated()" th:if="${board.user.id} == ${user.id}" class="btn btn-info"
+					th:href="@{'/board/edit/' + ${board.id}}"
+					role="button">수정</a>
+			
+				<form sec:authorize="isAuthenticated()" th:if="${board.user.id} == ${user.id}" id="delete-form"
+					th:action="@{'/board/delete/' + ${board.id}}" method="post">
+					
+					<button id="delete-btn" type="submit" class="btn btn-danger">삭제</button>
+				</form>
+			
+			</div>
+			<br>
+			<div class="inputComment">
+			<form th:action="@{'/boardComment/' +  + ${board.id}}" method="post">
+				<div class="col-sm">
+			
+					
+						  
+					<textarea type="text" name="rent_comment_content" class="form-control"
+						id="inputComment" rows="3"></textarea>
+					<input class="btn btn-primary" type="submit" role="button"
+						value="댓글작성" id="submitComment">
+				</div>
+
+			</form>
+		</div>	
+		<div class="comment">
+			<table class="table">
+				<thead>
+	<colgroup>
+    	<col width="50%">
+    	<col width="25%">
+    	<col width="10%">
+    </colgroup>
+					<tr class="text-center">
+						
+						<th scope="col">댓글</th>
+						<th scope="col">작성자</th>
+						<th scope="col">작성일</th>
+					</tr>
+				</thead>
+				<!-- 
+				<tbody>
+					
+					<tr class="text-center" th:each="rentComment : ${rentPost.rentComment}">
+						
+						<td><pre><span th:text="${rentComment.rent_comment_content}"></span></pre></td>
+						<td><span th:text="${rentComment.author}"></span></td>
+
+					</tr>
+				</tbody>
+				-->
+			</table>
+		</div>
+			<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@수정필요 @@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		
+	
+
+		</div>
+		<hr>
+		
+	</div>
+</body>
+</html>

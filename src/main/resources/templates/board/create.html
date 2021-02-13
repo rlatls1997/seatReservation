@@ -27,15 +27,14 @@ header {
 	text-align: center;
 }
 
-div#createPost {
+div#register-form {
 	border: 1px solid gray;
 	border-radius: 5px;
-	width: 600px;
+	width: 450px;
 	padding-bottom: 40px;
 	margin: auto;
 	margin-top: 20px;
 }
-
 div#registerContainer {
 	text-align: center;
 }
@@ -81,21 +80,22 @@ div#editBoard { width: 800px;  margin:auto}
 	<container>
 	<div id = "editBoard">
 	<div id="containerHeader">
-	<h3>글 수정</h3>
+	<h3>글 작성</h3>
 	</div>
-	<form th:action="@{'/board/edit/' + ${boardDetailsDto.id}}" method="post" id="createPost">
-		<div class="form-group1">
-					<label>제목</label> <input type="text" th:field="*{boardDetailsDto.title}" class="form-control" />
-					
+	<form th:action="@{/board/create}" method="post" th:object="${boardCreateDto}" id="createPost">
+		<div id="createPost" class="form-group1">
+					<label>제목</label> <input th:field="*{title}" type="text"
+						class="form-control" placeholder="제목을 입력하세요.">
+					<p class="error" th:if="${#fields.hasErrors('title')}"
+						th:errors="*{title}">Title Error</p>
 				</div>
 
 				<div class="form-group1">
 					<label>내용</label>
-		
-						<textarea rows="10" type="text" class="form-control" 
-						th:field="*{boardDetailsDto.content}" id="inputContent" ></textarea>
-				
-					
+						<textarea rows="10" type="text" th:field="*{content}" class="form-control"
+						id="inputContent" placeholder="내용을 입력하세요."></textarea>
+					<p class="error" th:if="${#fields.hasErrors('content')}"
+						th:errors="*{content}">Content Error</p>
 				</div>
 
 				<div id="registerContainer">

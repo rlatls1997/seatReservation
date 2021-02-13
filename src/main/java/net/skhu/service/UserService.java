@@ -8,9 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import net.skhu.dto.UserDetailsDto;
+import net.skhu.dto.UserSignIn;
+import net.skhu.dto.UserSignUp;
 import net.skhu.entity.User;
-import net.skhu.model.UserSignIn;
-import net.skhu.model.UserSignUp;
 import net.skhu.repository.UserRepository;
 
 @Service
@@ -26,6 +27,17 @@ public class UserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	public UserDetailsDto findOne(String userId) {
+		User user = userRepository.findByUserId(userId);
+
+		UserDetailsDto userDetailsDto = modelMapper.map(user, UserDetailsDto.class);
+
+		return userDetailsDto;
+	}
+	public User findOneUser(String userId) {
+		User user = userRepository.findByUserId(userId);
+		return user;
+	}
 
 	public boolean hasErrors(UserSignUp userSignUp, BindingResult bindingResult) {
 		// spring validation에서의 에러 처리
@@ -35,7 +47,7 @@ public class UserService {
 		/* 로직 에러 처리 */
 		// 비밀번호 불일치
 		if (userSignUp.getPassword().equals(userSignUp.getPasswordCheck()) == false) {
-			bindingResult.rejectValue("passwd2", null, "비밀번호가 일치하지 않습니다.");
+			bindingResult.rejectValue("passwordCheck", null, "비밀번호가 일치하지 않습니다.");
 			return true;
 		}
 

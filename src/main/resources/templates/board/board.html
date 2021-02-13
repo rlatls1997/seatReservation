@@ -90,8 +90,15 @@ nav {
 				</thead>
 				<tbody>
 					<tr class="text-center" th:each="board : ${boardList}">
+
 						<td th:text="${board.id}"></td>
-						<td th:text="${board.title}">제목</td>
+						  
+						 <td>
+						<a th:href="@{'/board/details/' + ${board.id}}" >
+							<span th:text="${board.title}">제목</span>
+						</a>
+						</td>
+						
 						<td th:text="${board.user.name}">작성자</td>
 						<td
 							th:text="${#temporals.format(board.reportingDate, 'yy-MM-dd HH:mm')}">

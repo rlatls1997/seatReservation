@@ -1,4 +1,4 @@
-package net.skhu.model;
+package net.skhu.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
